@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 function CreatePostModal({ isOpen, onClose, onAddPost }) {
-const [formData, setFormData] = useState({
-  title: "",
-  category: "Software Development",
-  description: "",
-  author: "Logeshwaran K",
-  readTime: "5 min read",
-  image: "" 
-});
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "Software Development",
+    description: "",
+    author: "Logeshwaran K",
+    readTime: "5 min read",
+    image: "" 
+  });
 
   if (!isOpen) return null;
 
@@ -22,13 +22,14 @@ const [formData, setFormData] = useState({
       date: "Nov 11, 2026",
     });
 
+    // Fixed here: changed `image` to `image: ""`
     setFormData({
       title: "",
       category: "Software Development",
       description: "",
-      image,
-      author: "Admin",
-      readTime: "4 Mins Read",
+      image: "",
+      author: "Logeshwaran K",
+      readTime: "5 min read",
     });
 
     onClose();
@@ -84,16 +85,17 @@ const [formData, setFormData] = useState({
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></textarea>
           </div>
+
           <div>
-  <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-  <input
-    type="text"
-    placeholder="Paste Unsplash or image link here..."
-    value={formData.image}
-    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-  />
-</div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+            <input
+              type="text"
+              placeholder="Paste Unsplash or image link here..."
+              value={formData.image}
+              onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            />
+          </div>
 
           <div className="flex justify-end gap-3 pt-2">
             <button

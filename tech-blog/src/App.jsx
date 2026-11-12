@@ -5,6 +5,9 @@ import Blogcard from "./components/Blogcard";
 import CreatePostModal from "./components/CreatePostModal";
 import BlogDetailModal from "./components/BlogDetailModal";
 import AdminLoginModal from "./components/AdminLoginModal";
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000"
+});
 
 function App() {
   const [currentView, setCurrentView] = useState("home"); // "home", "articles", "categories", "about"
@@ -24,7 +27,7 @@ function App() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/posts");
+      const response = await API.get("/api/posts");
       setBlogPosts(response.data);
       setLoading(false);
     } catch (err) {
@@ -36,7 +39,7 @@ function App() {
   
   const handleAddPost = async (newPostData) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/posts", newPostData);
+      const response = await API.post("/api/posts", newPostData);
       setBlogPosts([response.data, ...blogPosts]);
       setIsModalOpen(false);
     } catch (err) {
@@ -48,7 +51,7 @@ function App() {
   const handleDeletePost = async (id) => {
     try {
       const cleanId = String(id).trim();
-      await axios.delete(`http://localhost:5000/api/posts/${cleanId}`);
+      await API.delete(`/api/posts/${cleanId}`);
       setBlogPosts(prevPosts => prevPosts.filter(post => post._id !== id));
       console.log("Deleted successfully!");
     } catch (err) {
@@ -75,10 +78,7 @@ function App() {
     const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
-  const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000',
-  withCredentials: true // optional, if you use cookies
-});
+  
 
 
 
